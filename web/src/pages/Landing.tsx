@@ -4,17 +4,17 @@ import { Link } from 'react-router-dom';
 
 import '../styles/pages/landing.css';
 
-import logoImg from '../images/logo.svg';
+import logoImg from '../images/svg-balls.svg';
 
 function Landing() {
   return (
     <div id="page-landing">
       <div className="content-wrapper">
-        <img src={logoImg} alt="Happy" />
+        {/* <img src={logoImg} alt="Happy" /> */}
 
         <main>
-          <h1>Leve felicidade para o mundo</h1>
-          <p>Visite orfanatos e mude o dia de muitas crianças</p>
+          <h1>Pratique esportes</h1>
+          <p>Reuna seus amigos e joguem seus esportes favoritos</p>
         </main>
 
         <div className="location">
