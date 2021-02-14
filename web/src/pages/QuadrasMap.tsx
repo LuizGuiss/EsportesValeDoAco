@@ -1,24 +1,31 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FiPlus, FiArrowRight } from 'react-icons/fi';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import Leaflet from 'leaflet';
 
-import 'leaflet/dist/leaflet.css';
-
-import mapMarkerImg from '../images/map-marker.svg';
+import mapIcon from '../utils/mapIcon';
+import api from '../services/api';
 
 import '../styles/pages/quadras-map.css';
 
-const mapIcon = Leaflet.icon({
-  iconUrl: mapMarkerImg,
-
-  iconSize: [58, 68],
-  iconAnchor: [29, 68],
-  popupAnchor: [170, 2],
-});
+interface Quadra {
+  id: number;
+  latitude: number;
+  longitude: number;
+  name: string;
+};
 
 function QuadrasMap() {
+  const [quadras, setQuadras] = useState<Quadra[]>([]);
+
+  // executa a função ({}) quando alguma das variáveis
+  // que estiver no [] ser alterada
+  useEffect(() => {
+    api.get('quadras').then(response => {
+      setQuadras(response.data);
+    });
+  }, []);
+
   return (
     <div id="page-map">
       <aside>
@@ -45,17 +52,22 @@ function QuadrasMap() {
           url={`https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
         />
 
-        <Marker
-          icon={mapIcon}
-          position={[-19.4635001, -42.5440843]}
-        >
-          <Popup closeButton={false} minWidth={240} maxWidth={240} className="map-popup">
-            Medalha de ouro
-            <Link to="/quadras/1">
-              <FiArrowRight size={20} color="#FFF" />
-            </Link>
-          </Popup>
-        </Marker>
+        {quadras.map(quadra => {
+          return (
+            <Marker
+              icon={mapIcon}
+              key={quadra.id}
+              position={[quadra.latitude, quadra.longitude]}
+            >
+              <Popup closeButton={false} minWidth={240} maxWidth={240} className="map-popup">
+                {quadra.name}
+            <Link to={`/quadras/${quadra.id}`}>
+                  <FiArrowRight size={20} color="#FFF" />
+                </Link>
+              </Popup>
+            </Marker>
+          )
+        })}
       </MapContainer>
 
 

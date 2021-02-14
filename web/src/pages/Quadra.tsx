@@ -1,69 +1,90 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaWhatsapp } from "react-icons/fa";
-import { FiClock, FiInfo, FiArrowLeft, FiPower, FiDollarSign } from "react-icons/fi";
+import { FiClock, FiInfo, FiDollarSign } from "react-icons/fi";
 import { MapContainer, Marker, TileLayer } from "react-leaflet";
-import { useHistory } from 'react-router-dom';
-import L from 'leaflet';
+import { useParams } from 'react-router-dom';
 
-import mapMarkerImg from '../images/map-marker.svg';
+import Sidebar from "../components/Sidebar";
+import mapIcon from "../utils/mapIcon";
 
 import '../styles/pages/quadra.css';
+import api from "../services/api";
 
-const happyMapIcon = L.icon({
-  iconUrl: mapMarkerImg,
+interface Quadra {
+  latitude: number;
+  longitude: number;
+  name: string;
+  informations: string;
+  opening_hours: string;
+  sports: string;
+  tel: string;
+  value: string;
+  open_on_weekends: string;
+  images: Array<{
+    id: number;
+    url: string;
+  }>;
+};
 
-  iconSize: [58, 68],
-  iconAnchor: [29, 68],
-  popupAnchor: [0, -60]
-})
+interface QuadraParams {
+  id: string;
+}
+
 
 export default function Orphanage() {
-  const { goBack } = useHistory();
+  const params = useParams<QuadraParams>();
+  const [quadra, setQuadra] = useState<Quadra>();
+  // para selecionar a imagem que está ativa
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
+
+
+  // executa a função ({}) quando alguma das variáveis
+  // que estiver no [] ser alterada
+  useEffect(() => {
+    api.get(`quadras/${params.id}`).then(response => {
+      setQuadra(response.data);
+    });
+  }, [params.id]);
+  //params.id é importante estar no array
+  //pq ele permique que busquem uma chamada no api para buscar novos dados
+
+  if (!quadra) {
+    return <p>Carregando...</p>
+  }
 
   return (
     <div id="page-orphanage">
-      <aside>
-        <img src={mapMarkerImg} alt="Happy" />
-
-        <footer>
-          <button type="button" onClick={goBack}>
-            <FiArrowLeft size={24} color="#FFF" />
-          </button>
-        </footer>
-      </aside>
+      <Sidebar />
 
       <main>
         <div className="orphanage-details">
-          <img src="https://lh3.googleusercontent.com/proxy/Se9Giu1wjROAH41AnwBXSvBf0AtZIu-nHaL9-KBQ4Exa-M1sH9_sare2vX7hz9U6tnr9JssL69bACn-B5A-WWmlPupyh-YaQJyKmW6vyW004c5I5o74D0WSzzHhOvgoHFgHRveDcJheYbIsJmg3oxv4Iz0zSiIPP-afgv6UoCwcQpuYVhzUHXMFjJkXYzg" alt="Lar das meninas" />
+          <img src={quadra.images[activeImageIndex].url} alt={quadra.name} />
 
           <div className="images">
-            <button className="active" type="button">
-              <img src="https://lh3.googleusercontent.com/proxy/Se9Giu1wjROAH41AnwBXSvBf0AtZIu-nHaL9-KBQ4Exa-M1sH9_sare2vX7hz9U6tnr9JssL69bACn-B5A-WWmlPupyh-YaQJyKmW6vyW004c5I5o74D0WSzzHhOvgoHFgHRveDcJheYbIsJmg3oxv4Iz0zSiIPP-afgv6UoCwcQpuYVhzUHXMFjJkXYzg" alt="Lar das meninas" />
-            </button>
-            <button type="button">
-              <img src="https://lh3.googleusercontent.com/proxy/Se9Giu1wjROAH41AnwBXSvBf0AtZIu-nHaL9-KBQ4Exa-M1sH9_sare2vX7hz9U6tnr9JssL69bACn-B5A-WWmlPupyh-YaQJyKmW6vyW004c5I5o74D0WSzzHhOvgoHFgHRveDcJheYbIsJmg3oxv4Iz0zSiIPP-afgv6UoCwcQpuYVhzUHXMFjJkXYzg" alt="Lar das meninas" />
-            </button>
-            <button type="button">
-              <img src="https://lh3.googleusercontent.com/proxy/Se9Giu1wjROAH41AnwBXSvBf0AtZIu-nHaL9-KBQ4Exa-M1sH9_sare2vX7hz9U6tnr9JssL69bACn-B5A-WWmlPupyh-YaQJyKmW6vyW004c5I5o74D0WSzzHhOvgoHFgHRveDcJheYbIsJmg3oxv4Iz0zSiIPP-afgv6UoCwcQpuYVhzUHXMFjJkXYzg" alt="Lar das meninas" />
-            </button>
-            <button type="button">
-              <img src="https://lh3.googleusercontent.com/proxy/Se9Giu1wjROAH41AnwBXSvBf0AtZIu-nHaL9-KBQ4Exa-M1sH9_sare2vX7hz9U6tnr9JssL69bACn-B5A-WWmlPupyh-YaQJyKmW6vyW004c5I5o74D0WSzzHhOvgoHFgHRveDcJheYbIsJmg3oxv4Iz0zSiIPP-afgv6UoCwcQpuYVhzUHXMFjJkXYzg" alt="Lar das meninas" />
-            </button>
-            <button type="button">
-              <img src="https://lh3.googleusercontent.com/proxy/Se9Giu1wjROAH41AnwBXSvBf0AtZIu-nHaL9-KBQ4Exa-M1sH9_sare2vX7hz9U6tnr9JssL69bACn-B5A-WWmlPupyh-YaQJyKmW6vyW004c5I5o74D0WSzzHhOvgoHFgHRveDcJheYbIsJmg3oxv4Iz0zSiIPP-afgv6UoCwcQpuYVhzUHXMFjJkXYzg" alt="Lar das meninas" />
-            </button>
-            <button type="button">
-              <img src="https://lh3.googleusercontent.com/proxy/Se9Giu1wjROAH41AnwBXSvBf0AtZIu-nHaL9-KBQ4Exa-M1sH9_sare2vX7hz9U6tnr9JssL69bACn-B5A-WWmlPupyh-YaQJyKmW6vyW004c5I5o74D0WSzzHhOvgoHFgHRveDcJheYbIsJmg3oxv4Iz0zSiIPP-afgv6UoCwcQpuYVhzUHXMFjJkXYzg" alt="Lar das meninas" />
-            </button>
+            {quadra.images.map((image, index) => {
+              return (
+                <button 
+                  key={image.id} 
+                  className={activeImageIndex === index ? 'active' : ''} 
+                  type="button"
+                  // seleciona a imagem que está ativada, selecionada
+                  onClick={() => {
+                    setActiveImageIndex(index)
+                  }}
+                  >
+                  <img src={image.url} alt={quadra.name} />
+                </button>
+              )
+            })}
           </div>
 
           <div className="orphanage-details-content">
-            <h1>Medalha de ouro</h1>
-            <p>Funciona todos os dias da semana.</p>
+            <h1>{quadra.name}</h1>
+            <p>{quadra.informations}</p>
 
             <div className="map-container">
               <MapContainer
-                center={[-19.4635001, -42.5440843]}
+                center={[quadra.latitude, quadra.longitude]}
                 zoom={16}
                 style={{ width: '100%', height: 280 }}
                 dragging={false}
@@ -75,41 +96,45 @@ export default function Orphanage() {
                 <TileLayer
                   url={`https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
                 />
-                <Marker interactive={false} icon={happyMapIcon} position={[-19.4635001, -42.5440843]} />
+                <Marker interactive={false} icon={mapIcon} position={[quadra.latitude, quadra.longitude]} />
               </MapContainer>
 
               <footer>
-                <a href="">Ver rotas no Google Maps</a>
+                <a target="_blank" rel="noopener noreferrer" href={`https://www.google.com/maps/dir/?api=1&destination=${quadra.latitude},${quadra.longitude}`}>Ver rotas no Google Maps</a>
               </footer>
             </div>
 
             <hr />
 
             <h2>Instruções para jogar</h2>
-            <p>Venha como seu material esportivo.</p>
+            <p>{quadra.informations}.</p>
 
             <div className="open-details">
               <div className="hour">
                 <FiClock size={32} color="#15B6D6" />
                 Todos os dias <br />
-                6h às 10h <br />
-                18h às 23h
+                {quadra.opening_hours}
               </div>
+              {quadra.open_on_weekends ? (
+                <div className="open-on-weekends">
+                  <FiInfo size={32} color="#39CC83" />
+                  Atendemos <br />
+                  fim de semana
+                </div>
+              ) : (
+                  <div className="open-on-weekends dont-open">
+                    <FiInfo size={32} color="#FF669D" />
+                  Não atendemos <br />
+                  fim de semana
+                  </div>
+                )}
               <div className="open-on-weekends">
                 <FiInfo size={32} color="#39CC83" />
-                Atendemos <br />
-                fim de semana
-              </div>
-              <div className="open-on-weekends">
-                <FiInfo size={32} color="#39CC83" />
-                Futstal <br />
-                Vôlei <br />
-                Handbal <br />
-                Basquete
+                {quadra.sports}
               </div>
               <div className="open-on-weekends">
                 <FiDollarSign size={32} color="#39CC83" />
-                R$60,00/hora
+                {quadra.value}
               </div>
             </div>
 

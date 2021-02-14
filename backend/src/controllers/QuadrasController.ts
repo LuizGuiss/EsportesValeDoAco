@@ -57,7 +57,7 @@ export default {
       sports,
       tel,
       value,
-      open_on_weekends,
+      open_on_weekends: open_on_weekends === 'true',
       images,
     }
 

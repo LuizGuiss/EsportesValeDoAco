@@ -1,55 +1,12 @@
-#page-create-orphanage {
+#page-create-quadra {
   display: flex;
 }
 
-#page-create-orphanage aside {
-  position: fixed;
-  height: 100%;
-  padding: 850px 24px;
-  background: #667db6;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to left, #667db6, #0082c8, #0082c8, #667db6);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to left, #667db6, #0082c8, #0082c8, #667db6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
-
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-}
-
-#page-create-orphanage aside img {
-  width: 48px;
-}
-
-#page-create-orphanage aside footer a,
-#page-create-orphanage aside footer button {
-  width: 48px;
-  height: 48px;
-
-  border: 0;
-
-  background: #12AFCB;
-  border-radius: 16px;
-
-  cursor: pointer;
-
-  transition: background-color 0.2s;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-#page-create-orphanage aside footer a:hover,
-#page-create-orphanage aside footer button:hover {
-  background: #17D6EB;
-}
-
-#page-create-orphanage main {
+#page-create-quadra main {
   flex: 1;
 }
 
-form.create-orphanage-form {
+form.create-quadra-form {
   width: 700px;
   margin: 64px auto;
 
@@ -62,15 +19,21 @@ form.create-orphanage-form {
   overflow: hidden;
 }
 
-form.create-orphanage-form fieldset {
+form.create-quadra-form .leaflet-container {
+  margin-bottom: 40px;
+  border: 1px solid #D3E2E5;
+  border-radius: 20px;
+}
+
+form.create-quadra-form fieldset {
   border: 0;
 }
 
-form.create-orphanage-form fieldset + fieldset {
+form.create-quadra-form fieldset + fieldset {
   margin-top: 80px;
 }
 
-form.create-orphanage-form fieldset legend {
+form.create-quadra-form fieldset legend {
   width: 100%;
 
   font-size: 32px;
@@ -83,26 +46,26 @@ form.create-orphanage-form fieldset legend {
   padding-bottom: 24px;
 }
 
-form.create-orphanage-form .input-block + .input-block {
+form.create-quadra-form .input-block + .input-block {
   margin-top: 24px;
 }
 
-form.create-orphanage-form .input-block label {
+form.create-quadra-form .input-block label {
   display: flex;
   color: #8FA7B3;
   margin-bottom: 8px;
   line-height: 24px;
 }
 
-form.create-orphanage-form .input-block label span {
+form.create-quadra-form .input-block label span {
   font-size: 14px;
   color: #8FA7B3;
   margin-left: 24px;
   line-height: 24px;
 }
 
-form.create-orphanage-form .input-block input,
-form.create-orphanage-form .input-block textarea {
+form.create-quadra-form .input-block input,
+form.create-quadra-form .input-block textarea {
   width: 100%;
   background: #F5F8FA;
   border: 1px solid #D3E2E5;
@@ -111,12 +74,12 @@ form.create-orphanage-form .input-block textarea {
   color: #5C8599;
 }
 
-form.create-orphanage-form .input-block input {
+form.create-quadra-form .input-block input {
   height: 64px;
   padding: 0 16px;
 }
 
-form.create-orphanage-form .input-block textarea {
+form.create-quadra-form .input-block textarea {
   min-height: 120px;
   max-height: 240px;
   resize: vertical;
@@ -124,21 +87,43 @@ form.create-orphanage-form .input-block textarea {
   line-height: 28px;
 }
 
-form.create-orphanage-form .input-block .new-image {
+form.create-quadra-form .input-block .images-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 16px;
+}
+
+form.create-quadra-form .input-block .images-container img {
   width: 100%;
-  height: 64px;
+  height: 96px;
+  object-fit: cover;
+  border-radius: 20px
+}
+
+form.create-quadra-form .input-block .new-image {
+  width: 100%;
+  height: 96px;
   background: #F5F8FA;
   border: 1px dashed #96D2F0;
   border-radius: 20px;
   cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-form.create-orphanage-form .input-block .button-select {
+form.create-quadra-form .input-block input[type=file] {
+  visibility: hidden;
+  /* display: none; */
+}
+
+form.create-quadra-form .input-block .button-select {
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
 
-form.create-orphanage-form .input-block .button-select button {
+form.create-quadra-form .input-block .button-select button {
   height: 64px;
   background: #F5F8FA;
   border: 1px solid #D3E2E5;
@@ -146,22 +131,22 @@ form.create-orphanage-form .input-block .button-select button {
   cursor: pointer;
 }
 
-form.create-orphanage-form .input-block .button-select button.active {
+form.create-quadra-form .input-block .button-select button.active {
   background: #EDFFF6;
   border: 1px solid #A1E9C5;
   color: #37C77F;
 }
 
-form.create-orphanage-form .input-block .button-select button:first-child {
+form.create-quadra-form .input-block .button-select button:first-child {
   border-radius: 20px 0px 0px 20px;
 }
 
-form.create-orphanage-form .input-block .button-select button:last-child {
+form.create-quadra-form .input-block .button-select button:last-child {
   border-radius: 0 20px 20px 0;
   border-left: 0;
 }
 
-form.create-orphanage-form button.confirm-button {
+form.create-quadra-form button.confirm-button {
   margin-top: 64px;
 
   width: 100%;
@@ -180,10 +165,10 @@ form.create-orphanage-form button.confirm-button {
   transition: background-color 0.2s;
 }
 
-form.create-orphanage-form button.confirm-button svg {
+form.create-quadra-form button.confirm-button svg {
   margin-right: 16px;
 }
 
-form.create-orphanage-form button.confirm-button:hover {
+form.create-quadra-form button.confirm-button:hover {
   background: #36CF82;
 }
