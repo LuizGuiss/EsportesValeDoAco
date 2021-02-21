@@ -55,6 +55,11 @@ export class createQuadras1612374399468 implements MigrationInterface {
           type: 'boolean',
           default: false,
         },
+        {
+          name: 'accepted',
+          type: 'boolean',
+          default: false
+        },
       ],
     }))
   }

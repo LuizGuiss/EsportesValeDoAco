@@ -15,7 +15,8 @@ export default {
       tel: quadra.tel,
       value: quadra.value,
       open_on_weekends: quadra.open_on_weekends,
-      images: imagesView.renderMany(quadra.images)
+      images: imagesView.renderMany(quadra.images),
+      accepted: quadra.accepted,
     };
   },
 

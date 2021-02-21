@@ -38,4 +38,7 @@ export default class Quadra {
     })
     @JoinColumn({ name: 'quadra_id' })
     images: Image[];
+
+    @Column()
+    accepted: boolean;
 }
