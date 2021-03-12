@@ -1,6 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinColumn } from 'typeorm';
 import Image from './Image';
 
+//o Entity associa a classe Quadra com a tabela quadras
 @Entity('quadras')
 export default class Quadra {
     @PrimaryGeneratedColumn('increment')

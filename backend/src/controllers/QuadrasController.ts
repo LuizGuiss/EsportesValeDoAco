@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import { getRepository } from 'typeorm';
+import { getRepository } from 'typeorm'; //determinan as operações no DB
 import quadraView from '../views/quadras_view';
-import * as Yup from 'yup';
+import * as Yup from 'yup';  //biblioteca para validação dos dados
 import { promisify } from 'util';
 import fs from 'fs';
 import path from 'path';

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FiPlus, FiArrowRight } from 'react-icons/fi';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { useDispatch, useSelector } from 'react-redux';
+
 
 import mapIcon from '../utils/mapIcon';
 import api from '../services/api';
@@ -25,6 +27,8 @@ function QuadrasMap() {
       setQuadras(response.data);
     });
   }, []);
+
+
 
   return (
     <div id="page-map">
@@ -61,7 +65,7 @@ function QuadrasMap() {
             >
               <Popup closeButton={false} minWidth={240} maxWidth={240} className="map-popup">
                 {quadra.name}
-            <Link to={`/quadras/${quadra.id}`}>
+                <Link to={`/quadras/${quadra.id}`}>
                   <FiArrowRight size={20} color="#FFF" />
                 </Link>
               </Popup>

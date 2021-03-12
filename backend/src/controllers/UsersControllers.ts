@@ -115,6 +115,7 @@ export default {
     }
   },
 
+  //se pa n precisa de ter
   async getUsers(req: Request, res: Response) {
     const { id, name, email } = req.params
 
