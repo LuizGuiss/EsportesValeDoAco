@@ -1,0 +1,48 @@
+/* .aside-container .aside-admin-main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+} */
+
+.aside-container img {
+  width: 48px;
+}
+.aside-container  {
+  position: fixed;
+  height: 100%;
+  padding: 32px 24px;
+  background: #667db6;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, #667db6, #0082c8, #0082c8, #667db6);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #667db6, #0082c8, #0082c8, #667db6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.aside-container .aside-admin-main-content a {
+    margin-bottom: 20px;
+
+    width: 40px;
+    height: 40px;
+
+    border: 0;
+
+    background: #12afc0;
+    border-radius: 16px;
+
+    cursor: pointer;
+    
+    transition: background-color 0.2s;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.aside-container .aside-admin-main-content .active-icon {
+    background: #FFD666
+}

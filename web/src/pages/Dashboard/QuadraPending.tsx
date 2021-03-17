@@ -1,42 +1,30 @@
 import React, { useEffect, useState } from "react";
-import { FaWhatsapp } from "react-icons/fa";
-import { FiClock, FiInfo, FiDollarSign, FiPhone } from "react-icons/fi";
+//import {  } from "react-icons/fa";
+import { FiClock, FiInfo, FiDollarSign, FiXCircle, FiCheck } from "react-icons/fi";
 import { MapContainer, Marker, TileLayer } from "react-leaflet";
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
-import Sidebar from "../components/Sidebar";
-import mapIcon from "../utils/mapIcon";
+import SidebarAdmin from "../../components/SidebarAdmin";
+import mapIcon from "../../utils/mapIcon";
 
-import '../styles/pages/quadra.css';
-//import api from "../services/api";
+import '../../styles/pages/dashboards/quadraPending.css';
 import { useDispatch, useSelector } from "react-redux";
-import { stateProps } from "../redux/store";
-import { getQuadra } from "../redux/actions/quadrasActions";
-
-/*interface Quadra {
-  latitude: number;
-  longitude: number;
-  name: string;
-  informations: string;
-  opening_hours: string;
-  sports: string;
-  tel: string;
-  value: string;
-  open_on_weekends: string;
-  images: Array<{
-    id: number;
-    url: string;
-  }>;
-};*/
+import { stateProps } from "../../redux/store";
+import { getQuadra, quadraPendingResponse } from "../../redux/actions/quadrasActions";
 
 interface QuadraParams {
   id: string;
 }
 
+interface ParamsProps {
+  id: string;
+}
 
-export default function Quadra() {
+function QuadraConfirm() {
   const params = useParams<QuadraParams>();
   const dispatch = useDispatch();
+  const { push } = useHistory();
+  const { id } = useParams<ParamsProps>();
 
   const { quadra } = useSelector((state: stateProps) => state.quadras)
   const [activeImageIndex, setActiveImageIndex] = useState(0)
@@ -45,32 +33,19 @@ export default function Quadra() {
     dispatch(getQuadra(params.id))
   }, [params.id, dispatch])
 
+  function handleAdminResponseToQuadraPending(adminResponse: boolean) {
+    dispatch(quadraPendingResponse(id, adminResponse, push))
+  }
+
+
   if (!quadra.id || (!quadra.latitude && !quadra.longitude)) {
     return <p>Loading...</p>
   }
 
-  // const [quadra, setQuadra] = useState<Quadra>();
-  // // para selecionar a imagem que está ativa
-  // const [activeImageIndex, setActiveImageIndex] = useState(0);
-
-
-  // // executa a função ({}) quando alguma das variáveis
-  // // que estiver no [] ser alterada
-  // useEffect(() => {
-  //   api.get(`quadras/${params.id}`).then(response => {
-  //     setQuadra(response.data);
-  //   });
-  // }, [params.id]);
-  // //params.id é importante estar no array
-  // //pq ele permique que busquem uma chamada no api para buscar novos dados
-
-  // if (!quadra) {
-  //   return <p>Carregando...</p>
-  // }
 
   return (
     <div id="page-quadra">
-      <Sidebar />
+      <SidebarAdmin />
 
       <main>
         <div className="quadra-details">
@@ -128,25 +103,25 @@ export default function Quadra() {
 
             <div className="open-details">
               {/* <div className="open-on-weekeds">
-                <FiInfo size={32} color="#39CC83" />
-                {quadra.informations}
-              </div> */}
+                  <FiInfo size={32} color="#39CC83" />
+                  {quadra.informations}
+                </div> */}
               <div className="hour">
                 <FiClock size={32} color="#15B6D6" />
-                Todos os dias <br />
+                  Todos os dias <br />
                 {quadra.opening_hours}
               </div>
               {quadra.open_on_weekends ? (
                 <div className="open-on-weekends">
                   <FiInfo size={32} color="#39CC83" />
-                  Atendemos <br />
-                  fim de semana
+                    Atendemos <br />
+                    fim de semana
                 </div>
               ) : (
                 <div className="open-on-weekends dont-open">
                   <FiInfo size={32} color="#FF669D" />
-                  Não atendemos <br />
-                  fim de semana
+                    Não atendemos <br />
+                    fim de semana
                 </div>
               )}
               <div className="open-on-weekends">
@@ -158,18 +133,26 @@ export default function Quadra() {
                 {quadra.value}
               </div>
               {/* <div className="open-on-weekends">
-                <FiPhone size={32} color="#39CC83" />
-                {quadra.tel}
-              </div> */}
+                  <FiPhone size={32} color="#39CC83" />
+                  {quadra.tel}
+                </div> */}
             </div>
 
-            <button type="button" className="contact-button">
-              <FaWhatsapp size={20} color="#FFF" />
-              Entrar em contato
-            </button>
+            <div className="quadra-pending-buttons">
+              <button className="button-decline-quadra" onClick={() => handleAdminResponseToQuadraPending(false)}>
+                <FiXCircle size={20} color="#fff" style={{ marginRight: "10px" }} />
+                  Recusar
+              </button>
+              <button className="button-accept-quadra" onClick={() => handleAdminResponseToQuadraPending(true)}>
+                <FiCheck size={20} color="#fff" style={{ marginRight: "10px" }} />
+                  Aceitar
+             </button>
+            </div>
           </div>
         </div>
       </main>
     </div>
   );
 }
+
+export default QuadraConfirm;

@@ -189,24 +189,24 @@ async function validateQuadraData(data: quadraProps) {
       return response.status(200).send();
     },
 
-    // async acceptQuadraResponse(req: Request, res: Response) {
-    //   const { id } = req.params
-    //   const { adminResponse } = req.body
+    async acceptQuadraResponse(req: Request, res: Response) {
+      const { id } = req.params
+      const { adminResponse } = req.body
 
-    //   const quadrasRepository = getRepository(Quadra)
+      const quadrasRepository = getRepository(Quadra)
 
-    //   const quadra = await quadrasRepository.findOne({ id: parseInt(id) })
+      const quadra = await quadrasRepository.findOne({ id: parseInt(id) })
 
-    //   if (!quadra) { return res.status(404).send("quadra not found") }
+      if (!quadra) { return res.status(404).send("quadra not found") }
 
-    //   if (adminResponse) {
-    //     quadra.accepted = true
-    //     await quadrasRepository.save(quadra)
-    //     return res.status(200).send("quadra saved")
-    //   } else {
-    //     await quadrasRepository.delete({ id: parseInt(id) })
-    //     return res.status(200).send("quadra removed")
-    //   }
+      if (adminResponse) {
+        quadra.accepted = true
+        await quadrasRepository.save(quadra)
+        return res.status(200).send("quadra saved")
+      } else {
+        await quadrasRepository.delete({ id: parseInt(id) })
+        return res.status(200).send("quadra removed")
+      }
 
-    // }
+    }
   }

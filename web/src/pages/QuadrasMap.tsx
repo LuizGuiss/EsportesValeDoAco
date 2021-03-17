@@ -6,29 +6,41 @@ import { useDispatch, useSelector } from 'react-redux';
 
 
 import mapIcon from '../utils/mapIcon';
-import api from '../services/api';
+//import api from '../services/api';
 
 import '../styles/pages/quadras-map.css';
+import { stateProps } from '../redux/store';
+import { getQuadras } from '../redux/actions/quadrasActions';
 
-interface Quadra {
-  id: number;
-  latitude: number;
-  longitude: number;
-  name: string;
-};
+// interface Quadra {
+//   id: number;
+//   latitude: number;
+//   longitude: number;
+//   name: string;
+// };
 
 function QuadrasMap() {
-  const [quadras, setQuadras] = useState<Quadra[]>([]);
+  const dispatch = useDispatch();
+  const [latitude, setLatitude] = useState<number | null>()
+  const [longitude, setLongitude] = useState<number | null>()
 
-  // executa a função ({}) quando alguma das variáveis
-  // que estiver no [] ser alterada
+  const { authenticated } = useSelector((state: stateProps) => state.user)
+  const { quadras } = useSelector((state: stateProps) => state.quadras)
+
   useEffect(() => {
-    api.get('quadras').then(response => {
-      setQuadras(response.data);
-    });
-  }, []);
+    dispatch(getQuadras(true))
+  }, [])
 
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(pos => {
+      setLatitude(pos.coords.latitude)
+      setLongitude(pos.coords.longitude)
+    })
+  }, [])
 
+  if (!latitude || !longitude) {
+    return <p>loading...</p>
+  }
 
   return (
     <div id="page-map">
@@ -47,40 +59,47 @@ function QuadrasMap() {
       </aside>
 
       <MapContainer
-        center={[-19.465635, -42.5411443]}
+        center={[latitude, longitude]}
         zoom={15}
+        scrollWheelZoom={false}
         style={{ width: '100%', height: '100%' }}
       >
-        {/* <TileLayer url="https://a.tile.openstreetmap.org/{z}/{x}/{y}.png" /> */}
-        <TileLayer
-          url={`https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
-        />
+        <TileLayer url={`https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`} />
 
-        {quadras.map(quadra => {
-          return (
-            <Marker
-              icon={mapIcon}
-              key={quadra.id}
-              position={[quadra.latitude, quadra.longitude]}
+        {quadras.map((quadra) => (
+          <Marker
+            key={quadra.id}
+            position={[quadra.latitude, quadra.longitude]}
+            icon={mapIcon}
+          >
+            <Popup
+              closeButton={false}
+              minWidth={240}
+              maxWidth={240}
+              className="map-popup"
             >
-              <Popup closeButton={false} minWidth={240} maxWidth={240} className="map-popup">
-                {quadra.name}
-                <Link to={`/quadras/${quadra.id}`}>
-                  <FiArrowRight size={20} color="#FFF" />
-                </Link>
-              </Popup>
-            </Marker>
-          )
-        })}
+              {quadra.name}
+              <Link to={`/quadras/${quadra.id}`}>
+                <FiArrowRight size={20} color="#fff" />
+              </Link>
+            </Popup>
+
+          </Marker>
+        ))}
+
       </MapContainer>
 
-
-      <Link to="/quadras/create" className="create-quadra">
-        <FiPlus size={32} color="#FFF" />
+      <Link to="/quadras/create" title="Cadastrar quadra" className="create-quadra">
+        <FiPlus size={32} color="#fff" />
       </Link>
 
+      {authenticated &&
+        <Link to="/dashboard/quadras-registered" className="dashboard">
+          Dashboard
+        </Link>
+      }
     </div>
-  );
+  )
 }
 
 export default QuadrasMap;
