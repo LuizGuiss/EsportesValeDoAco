@@ -225,9 +225,11 @@
 
   .quadra-details-content .quadra-pending-buttons .button-decline-quadra {
     background: #FF669D;
+    cursor: pointer
   }
 
   .quadra-details-content .quadra-pending-buttons .button-accept-quadra {
     background: #3CDC8C;
+    cursor: pointer
   }
   

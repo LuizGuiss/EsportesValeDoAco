@@ -59,13 +59,13 @@ function Login() {
             onChange={e => setPassword(e.target.value)}
           />
 
-          <div className="login-options">
+          {/* <div className="login-options">
             <div className="input-check-box">
               <input type="checkbox" />
               <p>Lembrar-me</p>
             </div>
             <Link to="/forget-password">Esqueci minha senha</Link>
-          </div>
+          </div> */}
 
           {error !== '' && <span className="error">* {error}</span>}
 

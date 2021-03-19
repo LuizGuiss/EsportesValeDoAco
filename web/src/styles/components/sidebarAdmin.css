@@ -46,3 +46,7 @@
 .aside-container .aside-admin-main-content .active-icon {
     background: #FFD666
 }
+
+.aside-container button {
+  cursor: pointer;
+}

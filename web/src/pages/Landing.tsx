@@ -24,7 +24,7 @@ function Landing() {
 
         <div className="location">
           <strong>Minas Gerais</strong>
-          <span>Ipatinga</span>
+          <span>Vale do Aço</span>
         </div>
 
         {authenticated ? (

@@ -5,6 +5,7 @@ import { deleteQuadra, getQuadra } from '../../redux/actions/quadrasActions'
 import { stateProps } from '../../redux/store';
 
 import sorryMarker from '../../images/sorry-marker.svg'
+import xbutton from '../../images/x-button.svg'
 import '../../styles/pages/dashboards/quadraDelete.css'; 
 
 interface paramsProps {
@@ -35,18 +36,20 @@ function DeleteQuadra() {
       <div className="delete-page-wrapper">
         <div className="delete-quadra-info">
           <h2>Excluir!</h2>
-          <p>Você tem certeza que deseja excluir {quadra.name}?</p>
+          <p>Você deseja excluir {quadra.name}?</p>
 
           <button onClick={handleGoToDashboard}>
             Deletar
           </button>
         </div>
 
-        <img src={sorryMarker} alt="delete icon" />
+        <img src={xbutton} alt="delete icon" />
 
       </div>
     </main>
   )
 }
+
+<div>Icons made by <a href="https://www.flaticon.com/authors/alfredo-hernandez" title="Alfredo Hernandez">Alfredo Hernandez</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 
 export default DeleteQuadra

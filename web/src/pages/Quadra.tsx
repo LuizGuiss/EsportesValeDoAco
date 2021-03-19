@@ -3,6 +3,7 @@ import { FaWhatsapp } from "react-icons/fa";
 import { FiClock, FiInfo, FiDollarSign, FiPhone } from "react-icons/fi";
 import { MapContainer, Marker, TileLayer } from "react-leaflet";
 import { useParams } from 'react-router-dom';
+import ReactWhatsapp from 'react-whatsapp';
 
 import Sidebar from "../components/Sidebar";
 import mapIcon from "../utils/mapIcon";
@@ -49,24 +50,8 @@ export default function Quadra() {
     return <p>Loading...</p>
   }
 
-  // const [quadra, setQuadra] = useState<Quadra>();
-  // // para selecionar a imagem que está ativa
-  // const [activeImageIndex, setActiveImageIndex] = useState(0);
-
-
-  // // executa a função ({}) quando alguma das variáveis
-  // // que estiver no [] ser alterada
-  // useEffect(() => {
-  //   api.get(`quadras/${params.id}`).then(response => {
-  //     setQuadra(response.data);
-  //   });
-  // }, [params.id]);
-  // //params.id é importante estar no array
-  // //pq ele permique que busquem uma chamada no api para buscar novos dados
-
-  // if (!quadra) {
-  //   return <p>Carregando...</p>
-  // }
+  const date = new Date();
+  const horaAtual = date.getHours();
 
   return (
     <div id="page-quadra">
@@ -123,7 +108,7 @@ export default function Quadra() {
             <hr />
 
             <h2>Instruções para jogar</h2>
-            <p>{quadra.informations}.</p>
+            {/* <p>{quadra.informations}</p> */}
             <p>Telefone para contato: {quadra.tel}</p>
 
             <div className="open-details">
@@ -166,6 +151,17 @@ export default function Quadra() {
             <button type="button" className="contact-button">
               <FaWhatsapp size={20} color="#FFF" />
               Entrar em contato
+              <div className="buttonWpp">
+                <ReactWhatsapp
+                  element="button"
+                  number={quadra.tel}
+                  message={
+                    (horaAtual > 11 && horaAtual < 18) ? `Boa tarde, ${quadra.name}!` :
+                      (horaAtual > 17 && horaAtual < 25) ? `Boa noite, ${quadra.name}!` :
+                      `Bom dia, ${quadra.name}!`
+                  }
+                />
+              </div>
             </button>
           </div>
         </div>
