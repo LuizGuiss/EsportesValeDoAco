@@ -9,7 +9,7 @@ export default {
       name: quadra.name,
       latitude: quadra.latitude,
       longitude: quadra.longitude,
-      informations: quadra.informations,
+      address: quadra.address,
       opening_hours: quadra.opening_hours,
       sports: quadra.sports,
       tel: quadra.tel,

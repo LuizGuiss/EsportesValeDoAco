@@ -32,7 +32,7 @@ export default function CreateQuadra() {
   }
 
   const [name, setName] = useState('');
-  const [informations, setInformations] = useState('');
+  const [address, setAddress] = useState('');
   const [opening_hours, setOpeningHours] = useState('');
   const [sports, setSports] = useState('');
   const [tel, setTel] = useState('');
@@ -49,7 +49,7 @@ export default function CreateQuadra() {
     const data = new FormData();
 
     data.append('name', name);
-    data.append('informations', informations);
+    data.append('address', address);
     data.append('latitude', String(latitude));
     data.append('longitude', String(longitude));
     data.append('opening_hours', opening_hours);
@@ -114,12 +114,12 @@ export default function CreateQuadra() {
             </div>
 
             <div className="input-block">
-              <label htmlFor="informations">informações <span>Máximo de 300 caracteres</span></label>
+              <label htmlFor="address">Endereço <span>Máximo de 300 caracteres</span></label>
               <textarea
                 id="name"
                 maxLength={300}
-                value={informations}
-                onChange={event => setInformations(event.target.value)}
+                value={address}
+                onChange={event => setAddress(event.target.value)}
               />
             </div>
 

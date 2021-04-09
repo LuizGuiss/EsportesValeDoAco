@@ -30,10 +30,10 @@ function QuadraConfirm() {
   const { quadra } = useSelector((state: stateProps) => state.quadras);
 
   const [name, setName] = useState('');
-  //const [about, setInformations] = useState('')
+  //const [about, setAddress] = useState('')
   //const [instructions, setSports] = useSsports('')
   const [opening_hours, setOpeningHours] = useState('');
-  const [informations, setInformations] = useState('');
+  const [address, setAddress] = useState('');
   const [sports, setSports] = useState('');
   const [tel, setTel] = useState('');
   const [value, setValue] = useState('');
@@ -52,7 +52,7 @@ function QuadraConfirm() {
   useEffect(() => {
     if (quadra.id) {
       setName(quadra.name)
-      setInformations(quadra.informations)
+      setAddress(quadra.address)
       setSports(quadra.sports)
       setTel(quadra.tel)
       setValue(quadra.value)
@@ -77,7 +77,7 @@ function QuadraConfirm() {
     const data = new FormData();
 
     data.append('name', name);
-    data.append('informations', informations);
+    data.append('address', address);
     data.append('latitude', String(latitude));
     data.append('longitude', String(longitude));
     data.append('sports', sports);
@@ -156,12 +156,12 @@ function QuadraConfirm() {
             </div>
 
             <div className="input-block">
-              <label htmlFor="informations">informações <span>Máximo de 300 caracteres</span></label>
+              <label htmlFor="address">Endereço <span>Máximo de 300 caracteres</span></label>
               <textarea
                 id="name"
                 maxLength={300}
-                value={informations}
-                onChange={event => setInformations(event.target.value)}
+                value={address}
+                onChange={event => setAddress(event.target.value)}
               />
             </div>
 

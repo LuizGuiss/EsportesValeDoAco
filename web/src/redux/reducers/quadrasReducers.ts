@@ -15,7 +15,7 @@ export interface QuadraProps {
   name: string;
   latitude: number;
   longitude: number;
-  informations: string;
+  address: string;
   opening_hours: string;
   sports: string;
   tel: string;

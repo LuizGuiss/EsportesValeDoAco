@@ -89,9 +89,15 @@ function QuadrasMap() {
 
       </MapContainer>
 
-      <Link to="/quadras/create" title="Cadastrar quadra" className="create-quadra">
+      {/* <div id="label">
+        <p className="label">
+          <strong>Sugerir Quadra</strong>
+        </p>
+      </div> */}
+      <Link to="/quadras/create" title="Sugerir quadra" className="create-quadra">
         <FiPlus size={32} color="#fff" />
       </Link>
+
 
       {authenticated &&
         <Link to="/dashboard/quadras-registered" className="dashboard">
@@ -99,6 +105,8 @@ function QuadrasMap() {
         </Link>
       }
     </div>
+
+
   )
 }
 

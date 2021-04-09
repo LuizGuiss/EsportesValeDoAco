@@ -17,7 +17,7 @@ export default class Quadra {
     longitude: number;
 
     @Column()
-    informations: string;
+    address: string;
 
     @Column()
     opening_hours: string;

@@ -1,5 +1,3 @@
-//ok
-
 import api from '../../services/api'
 import { SET_ERROR, SET_UNAUTHENTICATED, SET_USER, CLEAR_ERROR } from '../types'
 

@@ -18,7 +18,7 @@ import { getQuadra } from "../redux/actions/quadrasActions";
   latitude: number;
   longitude: number;
   name: string;
-  informations: string;
+  address: string;
   opening_hours: string;
   sports: string;
   tel: string;
@@ -81,7 +81,7 @@ export default function Quadra() {
 
           <div className="quadra-details-content">
             <h1>{quadra.name}</h1>
-            <p>{quadra.informations}</p>
+            <p>{quadra.address}</p>
 
             <div className="map-container">
               <MapContainer
@@ -108,13 +108,13 @@ export default function Quadra() {
             <hr />
 
             <h2>Instruções para jogar</h2>
-            {/* <p>{quadra.informations}</p> */}
+            {/* <p>{quadra.address}</p> */}
             <p>Telefone para contato: {quadra.tel}</p>
 
             <div className="open-details">
               {/* <div className="open-on-weekeds">
                 <FiInfo size={32} color="#39CC83" />
-                {quadra.informations}
+                {quadra.address}
               </div> */}
               <div className="hour">
                 <FiClock size={32} color="#15B6D6" />

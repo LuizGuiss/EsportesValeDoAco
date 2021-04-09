@@ -31,7 +31,7 @@ export class createQuadras1612374399468 implements MigrationInterface {
           precision: 2,
         },
         {
-          name: 'informations',
+          name: 'address',
           type: 'text',
         },
         {
